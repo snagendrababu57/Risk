@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "128871979781",
+    "firebase_url": "https://milk-df041-default-rtdb.firebaseio.com",
+    "project_id": "milk-df041",
+    "storage_bucket": "milk-df041.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:128871979781:android:faf19d66ef251cd6c3356c",
+        "android_client_info": {
+          "package_name": "com.example.milk"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGnu8TnpENTEJezbrDVZItUbuHhcYiK9k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
