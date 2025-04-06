@@ -8,14 +8,17 @@ workflows:
       cocoapods: default
     scripts:
       - name: Install dependencies
-        script: flutter pub get
-
-      - name: Build iOS
-        script: flutter build ios --release --no-codesign
-
+        script: |
+          flutter pub get
       - name: Build APK
-        script: flutter build apk --release
-
+        script: |
+          flutter build apk --release
+      - name: Build iOS
+        script: |
+          cd ios
+          pod install
+          cd ..
+          flutter build ios --release --no-codesign
     artifacts:
       - build/app/outputs/flutter-apk/app-release.apk
       - build/ios/iphoneos/*.app
