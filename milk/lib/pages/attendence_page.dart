@@ -14,6 +14,7 @@ class AttendancePage extends StatefulWidget {
   });
 
   @override
+  // ignore: library_private_types_in_public_api
   _AttendancePageState createState() => _AttendancePageState();
 }
 
@@ -278,7 +279,9 @@ class _AttendancePageState extends State<AttendancePage> {
                             ),
                             const SizedBox(height: 8),
                             DropdownButton<String>(
-                              value: _attendanceData[selectedFullDate] ?? "0",
+                              value:
+                                  _attendanceData[selectedFullDate] ??
+                                  "0", // Default to "0" if not found
                               isExpanded: true,
                               onChanged: (String? newValue) {
                                 if (newValue != null) {
@@ -299,7 +302,8 @@ class _AttendancePageState extends State<AttendancePage> {
                                             ? status.replaceAll(".0", "")
                                             : status;
                                     return DropdownMenuItem<String>(
-                                      value: displayText,
+                                      value:
+                                          displayText, // Ensure this matches the expected format
                                       child: Text(displayText),
                                     );
                                   }).toList(),
