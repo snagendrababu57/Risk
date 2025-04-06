@@ -14,22 +14,17 @@ class AttendancePage extends StatefulWidget {
   });
 
   @override
-  // ignore: library_private_types_in_public_api
   _AttendancePageState createState() => _AttendancePageState();
 }
 
 class _AttendancePageState extends State<AttendancePage> {
-  // Updated status options to include "(A)" at the top
   final List<String> _statusOptions =
       ["(A)"] + List.generate(21, (index) => (index * 0.5).toString());
-
   late List<String> _days;
   final Map<String, String> _attendanceData = {};
   final DatabaseReference _database = FirebaseDatabase.instance.ref(
     "attendance",
   );
-
-  // List of months
   final List<String> _months = [
     "January",
     "February",
@@ -44,8 +39,6 @@ class _AttendancePageState extends State<AttendancePage> {
     "November",
     "December",
   ];
-
-  // Selected month
   int _selectedMonth = DateTime.now().month - 1; // 0-based index for months
   bool _hasUnsavedChanges = false; // Track unsaved changes
 
@@ -84,10 +77,8 @@ class _AttendancePageState extends State<AttendancePage> {
             if (kDebugMode) {
               print("Loading attendance: $key -> $value");
             }
-
-            // Store the value directly without conversion
-            String formattedValue = value.toString();
-            _attendanceData[key] = formattedValue; // Store the raw value
+            _attendanceData[key.toString()] =
+                value.toString(); // Store the raw value
           });
         });
       }
@@ -117,7 +108,7 @@ class _AttendancePageState extends State<AttendancePage> {
   }
 
   Future<void> _submitAttendance(String day) async {
-    DateTime now = DateTime.now(); // Define now here
+    DateTime now = DateTime.now();
     String fullDate =
         DateFormat('yyyy-MM-').format(DateTime(now.year, _selectedMonth + 1)) +
         day.padLeft(2, '0');
@@ -125,7 +116,6 @@ class _AttendancePageState extends State<AttendancePage> {
     // Check if the attendance value is "0" or not selected
     String? attendanceValue = _attendanceData[fullDate];
     if (attendanceValue == null || attendanceValue == "0") {
-      // Show a message if the value is "0" or not selected
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
@@ -141,7 +131,6 @@ class _AttendancePageState extends State<AttendancePage> {
         DateFormat('yyyy-MM-').format(DateTime(now.year, _selectedMonth + 1)) +
         (now.day - 1).toString().padLeft(2, '0');
     if (_attendanceData[yesterdayDate] == "0") {
-      // Show a dialog if yesterday's attendance is not saved
       _showYesterdayAttendanceDialog(yesterdayDate);
       return; // Exit the function without saving
     }
@@ -163,7 +152,6 @@ class _AttendancePageState extends State<AttendancePage> {
           });
         })
         .catchError((error) {
-          // Handle any errors that occur during the save
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text("Failed to save attendance: $error")),
           );
