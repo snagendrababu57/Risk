@@ -6,23 +6,19 @@ workflows:
       flutter: stable
       xcode: latest
       cocoapods: default
-
     scripts:
       - name: Install dependencies
         script: |
-          cd milk
           flutter pub get
-
       - name: Build APK
         script: |
-          cd milk
           flutter build apk --release
-
       - name: Build iOS
         script: |
-          cd milk
+          cd ios
+          pod install
+          cd ..
           flutter build ios --release --no-codesign
-
     artifacts:
-      - milk/build/app/outputs/flutter-apk/app-release.apk
-      - milk/build/ios/iphoneos/*.app
+      - build/app/outputs/flutter-apk/app-release.apk
+      - build/ios/iphoneos/*.app
